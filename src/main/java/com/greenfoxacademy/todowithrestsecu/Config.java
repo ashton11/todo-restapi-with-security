@@ -1,4 +1,4 @@
-package com.greenfoxacademy.todowithrestsecu.security;
+package com.greenfoxacademy.todowithrestsecu;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
