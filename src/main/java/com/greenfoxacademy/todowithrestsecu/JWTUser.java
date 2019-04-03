@@ -1,4 +1,4 @@
-package com.greenfoxacademy.todowithrestsecu.service;
+package com.greenfoxacademy.todowithrestsecu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.todowithrestsecu.models.Todo;
@@ -9,11 +9,24 @@ import java.util.Collection;
 import java.util.List;
 
 public class JWTUser implements UserDetails {
-  private long id;
-  private String username;
-  private String password;
-  private String name;
-  private List<Todo> userTodos;
+  private final long id;
+  private final String username;
+  private final String password;
+  private final String name;
+  private final List<Todo> userTodos;
+
+  public JWTUser(
+          long id,
+          String username,
+          String password,
+          String name,
+          List<Todo> userTodos) {
+    this.id = id;
+    this.username = username;
+    this.password = password;
+    this.name = name;
+    this.userTodos = userTodos;
+  }
 
   @Override
   @JsonIgnore
@@ -59,15 +72,7 @@ public class JWTUser implements UserDetails {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public List<Todo> getUserTodos() {
     return userTodos;
-  }
-
-  public void setUserTodos(List<Todo> userTodos) {
-    this.userTodos = userTodos;
   }
 }
