@@ -1,10 +1,7 @@
 package com.greenfoxacademy.todowithrestsecu.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Todo {
@@ -15,6 +12,8 @@ public class Todo {
   private String description;
   private boolean done;
   private boolean urgent;
+  @ManyToOne(targetEntity = User.class)
+  private User user;
 
   public Todo() {
   }
@@ -57,5 +56,13 @@ public class Todo {
 
   public void setUrgent(boolean urgent) {
     this.urgent = urgent;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 }
