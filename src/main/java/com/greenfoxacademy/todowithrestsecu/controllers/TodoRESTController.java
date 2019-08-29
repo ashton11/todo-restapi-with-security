@@ -23,11 +23,7 @@ public class TodoRESTController {
 
   @GetMapping("/api/getAll")
   public List<Todo> getAllThemTodos() {
-    if (!service.getAllTodos().isEmpty()) {
-      return service.getAllTodos();
-    } else {
-      return null;
-    }
+   return service.getAllTodos();
   }
 
   @PostMapping("/api/addTodo")

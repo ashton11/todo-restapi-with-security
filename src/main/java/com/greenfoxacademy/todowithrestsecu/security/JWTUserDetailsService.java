@@ -1,14 +1,15 @@
-package com.greenfoxacademy.todowithrestsecu.service;
+package com.greenfoxacademy.todowithrestsecu.security;
 
 import com.greenfoxacademy.todowithrestsecu.models.User;
-import com.greenfoxacademy.todowithrestsecu.repositories.UserRepo;
+import com.greenfoxacademy.todowithrestsecu.security.JWTUserBuilder;
+import com.greenfoxacademy.todowithrestsecu.security.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("jwtUserDetailsService")
 public class JWTUserDetailsService implements UserDetailsService {
 
   @Autowired
@@ -21,7 +22,7 @@ public class JWTUserDetailsService implements UserDetailsService {
     if (user==null){
       throw new UsernameNotFoundException(String.format("User '%s' not found", username));
     } else {
-      return null;
+      return JWTUserBuilder.create(user);
     }
   }
 }

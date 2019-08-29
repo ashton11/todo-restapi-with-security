@@ -1,4 +1,4 @@
-package com.greenfoxacademy.todowithrestsecu;
+package com.greenfoxacademy.todowithrestsecu.security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.greenfoxacademy.todowithrestsecu.models.Todo;
@@ -36,12 +36,12 @@ public class JWTUser implements UserDetails {
 
   @Override
   public String getPassword() {
-    return null;
+    return password;
   }
 
   @Override
   public String getUsername() {
-    return null;
+    return username;
   }
 
   @Override

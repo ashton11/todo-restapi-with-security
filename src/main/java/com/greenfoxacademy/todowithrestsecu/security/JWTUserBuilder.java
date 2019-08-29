@@ -1,6 +1,5 @@
-package com.greenfoxacademy.todowithrestsecu;
+package com.greenfoxacademy.todowithrestsecu.security;
 
-import com.greenfoxacademy.todowithrestsecu.JWTUser;
 import com.greenfoxacademy.todowithrestsecu.models.User;
 
 public final class JWTUserBuilder {
