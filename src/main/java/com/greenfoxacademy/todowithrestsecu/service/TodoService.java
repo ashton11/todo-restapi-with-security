@@ -31,7 +31,7 @@ public class TodoService {
     return (List<Todo>)repo.findAll();
   }
 
-  private boolean checkValidity(Todo todoToCheck) {
+  private boolean checkValidity(Todo todoToCheck) throws TodoCreationError {
     if (todoToCheck.getTitle().equalsIgnoreCase(null)) {
       throw new TodoCreationError("Todo must have a title");
     }
