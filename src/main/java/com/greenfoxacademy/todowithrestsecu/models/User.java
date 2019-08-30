@@ -1,5 +1,7 @@
 package com.greenfoxacademy.todowithrestsecu.models;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,17 +14,20 @@ public class User {
   private String password;
   private String name;
   private String email;
+  List<GrantedAuthority> authorities;
   @OneToMany(fetch = FetchType.EAGER)
   List<Todo> userTodos;
+
 
   public User() {
   }
 
-  public User(String username, String password, String name, String email) {
+  public User(String username, String password, String name, String email, List<GrantedAuthority> authorities) {
     this.username = username;
     this.password = password;
     this.name = name;
     this.email = email;
+    this.authorities = authorities;
   }
 
   public long getId() {
