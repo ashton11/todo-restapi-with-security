@@ -1,6 +1,7 @@
 package com.greenfoxacademy.todowithrestsecu.service;
 
 
+import com.greenfoxacademy.todowithrestsecu.errorHandling.UserError;
 import com.greenfoxacademy.todowithrestsecu.models.User;
 import com.greenfoxacademy.todowithrestsecu.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class UserService {
     this.userRepo = userRepo;
   }
 
-  public void saveUser(User user){
+  public void saveUser(User user) throws UserError {
     if (userRepo.findUserByUsername(user.getUsername()).isPresent()) {
       throw new UserError("Username already taken, please choose another!");
     }
@@ -26,7 +27,7 @@ public class UserService {
     userRepo.save(user);
   }
 
-  public User getUserByUsername(String username){
+  public User getUserByUsername(String username) throws UserError {
     if (userRepo.findUserByUsername(username).isPresent()) {
      return userRepo.findUserByUsername(username).get();
     }
