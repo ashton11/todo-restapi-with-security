@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-  @PostMapping
+  @PostMapping("/register")
   public ResponseEntity register(@RequestBody User userToRegister){
-    
+
   }
 }

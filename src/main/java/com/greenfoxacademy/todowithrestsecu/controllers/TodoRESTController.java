@@ -1,5 +1,6 @@
 package com.greenfoxacademy.todowithrestsecu.controllers;
 
+import com.greenfoxacademy.todowithrestsecu.errorHandling.TodoCreationError;
 import com.greenfoxacademy.todowithrestsecu.models.Todo;
 import com.greenfoxacademy.todowithrestsecu.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class TodoRESTController {
   }
 
   @PostMapping("/api/addTodo")
-  public ResponseEntity saveTodo(@RequestBody Todo todo){
+  public ResponseEntity saveTodo(@RequestBody Todo todo) throws TodoCreationError {
     service.saveTodo(todo);
     return new ResponseEntity(HttpStatus.ACCEPTED);
   }

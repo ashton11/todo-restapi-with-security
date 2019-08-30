@@ -2,6 +2,8 @@ package com.greenfoxacademy.todowithrestsecu.config;
 
 
 import com.greenfoxacademy.todowithrestsecu.security.JWTAuthenticationEntryPoint;
+import com.greenfoxacademy.todowithrestsecu.security.JWTAuthentinticationFilter;
+import com.greenfoxacademy.todowithrestsecu.security.JWTAuthorizationFilter;
 import com.greenfoxacademy.todowithrestsecu.security.JWTAuthorizationTokenFilter;
 
 import com.greenfoxacademy.todowithrestsecu.security.JWTUserDetailsService;
@@ -38,11 +40,11 @@ public class Config extends WebSecurityConfigurerAdapter {
           this.userDetailsService = userDetailsService;
   }
 
-  @Autowired
-  public void Config(AuthenticationManagerBuilder auth) throws Exception{
+  @Override
+  public void configure(AuthenticationManagerBuilder auth) throws Exception{
     auth
             .userDetailsService(userDetailsService)
-            .passwordEncoder(pwEncoder());
+            .passwordEncoder(pwEncoder);
   }
 
   @Bean
@@ -52,10 +54,17 @@ public class Config extends WebSecurityConfigurerAdapter {
   }
 
   @Override
-  protected void configure(HttpSecurity security) throws Exception{
-    security
+  protected void configure(HttpSecurity http) throws Exception{
+    http
             .csrf().disable().authorizeRequests()
-            .antMatchers(HttpMethod.POST, )
+            .antMatchers(HttpMethod.POST, "/register")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
+            .and()
+            .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+            .addFilter(new JWTAuthentinticationFilter(authenticationManager()))
+
 
   }
 
