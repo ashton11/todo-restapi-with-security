@@ -14,7 +14,6 @@ public class User {
   private String password;
   private String name;
   private String email;
-  List<GrantedAuthority> authorities;
   @OneToMany(fetch = FetchType.EAGER)
   List<Todo> userTodos;
 
@@ -22,12 +21,11 @@ public class User {
   public User() {
   }
 
-  public User(String username, String password, String name, String email, List<GrantedAuthority> authorities) {
+  public User(String username, String password, String name, String email) {
     this.username = username;
     this.password = password;
     this.name = name;
     this.email = email;
-    this.authorities = authorities;
   }
 
   public long getId() {

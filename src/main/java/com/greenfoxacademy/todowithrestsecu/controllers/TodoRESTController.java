@@ -23,7 +23,7 @@ public class TodoRESTController {
   }
 
   @GetMapping("/api/getAll")
-  public List<Todo> getAllThemTodos() {
+  public List<Todo> getAllThemTodos() throws TodoError {
    return service.getAllTodos();
   }
 

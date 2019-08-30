@@ -1,5 +1,6 @@
 package com.greenfoxacademy.todowithrestsecu.controllers;
 
+import com.greenfoxacademy.todowithrestsecu.errorHandling.UserError;
 import com.greenfoxacademy.todowithrestsecu.models.User;
 import com.greenfoxacademy.todowithrestsecu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class UserController {
   }
 
   @PostMapping("/register")
-  public User register(@RequestBody User userToRegister){
+  public User register(@RequestBody User userToRegister) throws UserError {
     userService.saveUser(userToRegister);
     return userToRegister;
   }

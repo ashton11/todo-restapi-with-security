@@ -4,6 +4,7 @@ package com.greenfoxacademy.todowithrestsecu.config;
 import com.greenfoxacademy.todowithrestsecu.security.JWTAuthenticationFilter;
 import com.greenfoxacademy.todowithrestsecu.security.JWTAuthorizationFilter;
 
+import com.greenfoxacademy.todowithrestsecu.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,7 @@ public class Config extends WebSecurityConfigurerAdapter {
   private BCryptPasswordEncoder pwEncoder;
 
   @Autowired
-  public Config(UserDetailsService userDetailsService,
+  public Config(UserDetailsServiceImpl userDetailsService,
                 BCryptPasswordEncoder pwEncoder){
           this.pwEncoder = pwEncoder;
           this.userDetailsService = userDetailsService;
