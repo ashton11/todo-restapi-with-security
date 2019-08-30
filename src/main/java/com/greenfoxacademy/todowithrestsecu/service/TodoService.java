@@ -33,10 +33,10 @@ public class TodoService {
 
   private boolean checkValidity(Todo todoToCheck) throws TodoError {
     if (todoToCheck.getTitle().length() == 0) {
-      throw new TodoError("Todo must have a title");
+      throw new TodoError("Todo must have a title!");
     }
     if (todoToCheck.getUser().getUsername().length() == 0){
-      throw new TodoError("This todo doesn't belong to anyone, please login");
+      throw new TodoError("This todo doesn't belong to anyone, please login!");
     }
     return true;
   }
