@@ -18,15 +18,18 @@ public class UserService {
 
   public void saveUser(User user){
     if (userRepo.findUserByUsername(user.getUsername()).isPresent()) {
-      throw new UserCreationError("Username already taken, please choose another!");
+      throw new UserError("Username already taken, please choose another!");
     }
-    if (userRepo.findUserByEmail(user.getEmail()).isPresent) {
-      throw new UserCreationError("Email already taken, please choose another!");
+    if (userRepo.findUserByEmail(user.getEmail()).isPresent()) {
+      throw new UserError("Email already taken, please choose another!");
     }
     userRepo.save(user);
   }
 
   public User getUserByUsername(String username){
-    return userRepo.findUserByUsername(username);
+    if (userRepo.findUserByUsername(username).isPresent()) {
+     return userRepo.findUserByUsername(username).get();
+    }
+    throw new UserError("User not found!");
   }
 }
