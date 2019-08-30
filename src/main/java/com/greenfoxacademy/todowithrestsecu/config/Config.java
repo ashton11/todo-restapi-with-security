@@ -47,12 +47,6 @@ public class Config extends WebSecurityConfigurerAdapter {
             .passwordEncoder(pwEncoder);
   }
 
-  @Bean
-  @Override
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
-
   @Override
   protected void configure(HttpSecurity http) throws Exception{
     http
@@ -63,24 +57,6 @@ public class Config extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and()
             .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-            .addFilter(new JWTAuthentinticationFilter(authenticationManager()))
-
-
-  }
-
-  @Override
-  public void configure(WebSecurity webSec) {
-    webSec
-            .ignoring()
-            .antMatchers(HttpMethod.POST, authenticationPath, "/register" , "/")
-            .and()
-            .ignoring()
-            .antMatchers(HttpMethod.GET,
-                    "/",
-                    "/register",
-                    "/*.html",
-                    "/favicon.ico",
-                    "/**/*.html",
-                    "/**/*.css");
+            .addFilter(new JWTAuthentinticationFilter(authenticationManager()));
   }
 }
