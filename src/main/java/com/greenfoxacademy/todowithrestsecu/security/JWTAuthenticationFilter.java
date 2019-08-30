@@ -9,8 +9,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import java.io.IOException;
 
-public class JWTAuthentinticationFilter implements Filter {
-  public JWTAuthentinticationFilter(AuthenticationManager manager) {
+public class JWTAuthenticationFilter implements Filter {
+  public JWTAuthenticationFilter(AuthenticationManager manager) {
   }
 
   @Override

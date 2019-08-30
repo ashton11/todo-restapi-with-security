@@ -2,7 +2,7 @@ package com.greenfoxacademy.todowithrestsecu.service;
 
 
 import com.greenfoxacademy.todowithrestsecu.models.User;
-import com.greenfoxacademy.todowithrestsecu.security.repository.UserRepo;
+import com.greenfoxacademy.todowithrestsecu.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,12 @@ public class UserService {
   }
 
   public void saveUser(User user){
+    if (userRepo.findUserByUsername(user.getUsername()).isPresent()) {
+      throw new UserCreationError("Username already taken, please choose another!");
+    }
+    if (userRepo.findUserByEmail(user.getEmail()).isPresent) {
+      throw new UserCreationError("Email already taken, please choose another!");
+    }
     userRepo.save(user);
   }
 

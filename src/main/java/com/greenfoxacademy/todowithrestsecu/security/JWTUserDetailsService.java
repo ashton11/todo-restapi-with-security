@@ -1,8 +1,7 @@
 package com.greenfoxacademy.todowithrestsecu.security;
 
 import com.greenfoxacademy.todowithrestsecu.models.User;
-import com.greenfoxacademy.todowithrestsecu.security.JWTUserBuilder;
-import com.greenfoxacademy.todowithrestsecu.security.repository.UserRepo;
+import com.greenfoxacademy.todowithrestsecu.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
