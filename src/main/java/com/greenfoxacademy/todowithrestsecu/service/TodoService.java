@@ -18,14 +18,14 @@ public class TodoService {
     this.repo = repo;
   }
 
-  public void saveTodo(Todo todo){
+  public void saveTodo(Todo todo) throws TodoCreationError {
     if (checkValidity(todo)) {
     repo.save(todo);
     }
   }
 
   public List<Todo> getAllTodos(){
-    if (repo.findAll().equals(0) || repo.findAll().equals(null)) {
+    if (repo.findAll().equals(null)) {
       return null;
     }
     return (List<Todo>)repo.findAll();

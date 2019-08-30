@@ -18,40 +18,31 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled= true)
 public class Config extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private JWTUserDetailsService JWTuserDetailsService;
+  private UserDetailsService userDetailsService;
+
+  private BCryptPasswordEncoder pwEncoder;
 
   @Autowired
-  private JWTAuthenticationEntryPoint unauthorizedHandler;
-
-  @Autowired
-  private JWTAuthorizationTokenFilter authorizationTokenFilter;
-
-  @Value("${jwt.header}")
-  private String tokenHeader;
-
-  @Value("${jwt.route.authentication.path}")
-  private String authenticationPath;
+  public Config(UserDetailsService userDetailsService,
+                BCryptPasswordEncoder pwEncoder){
+          this.pwEncoder = pwEncoder;
+          this.userDetailsService = userDetailsService;
+  }
 
   @Autowired
   public void Config(AuthenticationManagerBuilder auth) throws Exception{
     auth
-            .userDetailsService(JWTuserDetailsService)
+            .userDetailsService(userDetailsService)
             .passwordEncoder(pwEncoder());
-  }
-
-  @Bean
-  public PasswordEncoder pwEncoder(){
-    return new BCryptPasswordEncoder();
   }
 
   @Bean
@@ -63,18 +54,9 @@ public class Config extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity security) throws Exception{
     security
-            .csrf().disable()
-            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-            .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeRequests()
-            .antMatchers("/api/**")
-            .permitAll()
-            .anyRequest()
-            .authenticated();
+            .csrf().disable().authorizeRequests()
+            .antMatchers(HttpMethod.POST, )
 
-    security.addFilterBefore(authorizationTokenFilter, UsernamePasswordAuthenticationFilter.class);
   }
 
   @Override
