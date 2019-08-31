@@ -12,10 +12,18 @@ public class Todo {
   private String description;
   private boolean done;
   private boolean urgent;
-  @ManyToOne(targetEntity = User.class)
+  @ManyToOne(cascade = CascadeType.REFRESH)
   private User user;
 
   public Todo() {
+  }
+
+  public Todo(String title, String description, boolean done, boolean urgent, User user) {
+    this.title = title;
+    this.description = description;
+    this.done = done;
+    this.urgent = urgent;
+    this.user = user;
   }
 
   public long getId() {

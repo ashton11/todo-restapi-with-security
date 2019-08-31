@@ -24,7 +24,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class Config extends WebSecurityConfigurerAdapter {
 
-  private UserDetailsService userDetailsService;
+  private UserDetailsServiceImpl userDetailsService;
 
   private BCryptPasswordEncoder pwEncoder;
 

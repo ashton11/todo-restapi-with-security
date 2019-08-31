@@ -3,12 +3,12 @@ package com.greenfoxacademy.todowithrestsecu.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.greenfoxacademy.todowithrestsecu.models.User;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
@@ -29,7 +29,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
   private AuthenticationManager manager;
 
-
   public JWTAuthenticationFilter(AuthenticationManager manager) {
     this.manager = manager;
   }
@@ -38,8 +37,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   public Authentication attemptAuthentication(HttpServletRequest req,
                                               HttpServletResponse res)
           throws AuthenticationException {
+
     try {
-      User credentials = new ObjectMapper().readValue(req.getInputStream(), User.class);
+      com.greenfoxacademy.todowithrestsecu.models.User credentials = new ObjectMapper().readValue(req.getInputStream(), com.greenfoxacademy.todowithrestsecu.models.User.class);
 
       return manager.authenticate(
               new UsernamePasswordAuthenticationToken(
@@ -59,9 +59,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
           throws IOException, ServletException {
     String token = JWT.create()
             .withSubject(((User) authResult.getPrincipal()).getUsername())
-            .withClaim("email", ((User) authResult.getPrincipal()).getEmail())
             .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-            .sign(Algorithm.HMAC512(SECRET));
+            .sign(Algorithm.HMAC512(SECRET.getBytes()));
     response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
   }
 }

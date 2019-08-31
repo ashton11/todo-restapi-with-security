@@ -1,6 +1,7 @@
 package com.greenfoxacademy.todowithrestsecu.models;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,6 +27,11 @@ public class User {
     this.password = password;
     this.name = name;
     this.email = email;
+  }
+
+  public User(String username, String password) {
+    this.username = username;
+    this.password = password;
   }
 
   public long getId() {

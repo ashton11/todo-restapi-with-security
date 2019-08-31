@@ -5,6 +5,7 @@ import com.greenfoxacademy.todowithrestsecu.errorHandling.UserError;
 import com.greenfoxacademy.todowithrestsecu.models.User;
 import com.greenfoxacademy.todowithrestsecu.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,9 +13,12 @@ public class UserService {
 
   private UserRepo userRepo;
 
+  private BCryptPasswordEncoder pwEncoder;
+
   @Autowired
-  public UserService(UserRepo userRepo) {
+  public UserService(UserRepo userRepo, BCryptPasswordEncoder pwEncoder) {
     this.userRepo = userRepo;
+    this.pwEncoder = pwEncoder;
   }
 
   public void saveUser(User user) throws UserError {
@@ -24,6 +28,7 @@ public class UserService {
     if (userRepo.findUserByEmail(user.getEmail()).isPresent()) {
       throw new UserError("Email already taken, please choose another!");
     }
+    encodePW(user);
     userRepo.save(user);
   }
 
@@ -43,5 +48,10 @@ public class UserService {
       throw new UserError("Password is incorrect, please try again!");
     }
     throw new UserError("Username not found, please try again!");
+  }
+
+  private void encodePW(User user) {
+    String encodedPW = pwEncoder.encode(user.getPassword());
+    user.setPassword(encodedPW);
   }
 }
