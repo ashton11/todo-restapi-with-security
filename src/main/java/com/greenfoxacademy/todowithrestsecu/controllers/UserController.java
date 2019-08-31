@@ -23,4 +23,9 @@ public class UserController {
     userService.saveUser(userToRegister);
     return userToRegister;
   }
+
+  @PostMapping("/login")
+  public User login(@RequestBody User userToLogin) {
+    userService.login(userToLogin);
+  }
 }

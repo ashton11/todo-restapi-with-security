@@ -15,21 +15,21 @@ import java.util.List;
 
 @RestController
 public class TodoRESTController {
-  private TodoService service;
+  private TodoService todoService;
 
   @Autowired
   public TodoRESTController(TodoService service) {
-    this.service = service;
+    this.todoService = service;
   }
 
   @GetMapping("/api/getAll")
   public List<Todo> getAllThemTodos() throws TodoError {
-   return service.getAllTodos();
+   return todoService.getAllTodos();
   }
 
   @PostMapping("/api/addTodo")
   public ResponseEntity saveTodo(@RequestBody Todo todo) throws TodoError {
-    service.saveTodo(todo);
+    todoService.saveTodo(todo);
     return new ResponseEntity(HttpStatus.ACCEPTED);
   }
 }
