@@ -25,7 +25,7 @@ public class UserController {
   }
 
   @PostMapping("/login")
-  public User login(@RequestBody User userToLogin) {
-    userService.login(userToLogin);
+  public User login(@RequestBody User userToLogin) throws UserError {
+    return userService.login(userToLogin);
   }
 }

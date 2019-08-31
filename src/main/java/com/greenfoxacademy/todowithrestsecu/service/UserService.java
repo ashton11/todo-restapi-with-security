@@ -33,4 +33,15 @@ public class UserService {
     }
     throw new UserError("User not found!");
   }
+
+  public User login(User userToLogin) throws UserError {
+    String username = userToLogin.getUsername();
+    if (userRepo.findUserByUsername(username).isPresent()) {
+      if (userRepo.findUserByUsername(username).get().getPassword().equals(userToLogin.getPassword())) {
+        return userToLogin;
+      }
+      throw new UserError("Password is incorrect, please try again!");
+    }
+    throw new UserError("Username not found, please try again!");
+  }
 }
