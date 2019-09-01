@@ -1,5 +1,8 @@
 package com.greenfoxacademy.todowithrestsecu.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,10 +14,24 @@ public class User {
   private String username;
   private String password;
   private String name;
+  private String email;
   @OneToMany(fetch = FetchType.EAGER)
   List<Todo> userTodos;
 
+
   public User() {
+  }
+
+  public User(String username, String password, String name, String email) {
+    this.username = username;
+    this.password = password;
+    this.name = name;
+    this.email = email;
+  }
+
+  public User(String username, String password) {
+    this.username = username;
+    this.password = password;
   }
 
   public long getId() {
@@ -55,5 +72,13 @@ public class User {
 
   public void setUserTodos(List<Todo> userTodos) {
     this.userTodos = userTodos;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 }
